@@ -1,4 +1,3 @@
-// Companies endpoint with CORS support
 export default function handler(req, res) {
   // Set CORS headers
   res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -16,20 +15,36 @@ export default function handler(req, res) {
   }
   
   if (req.method === "GET") {
-    // Return test data
+    // Return the companies stored in memory
     res.status(200).json({ 
       message: "Companies endpoint is working",
-      companies: [] 
+      companies: companies 
     });
   } else if (req.method === "POST") {
-    // Log the received data
-    console.log("Received company data:", req.body);
-    
-    // Return success response
-    res.status(201).json({ 
-      message: "Company created successfully",
-      company: req.body 
-    });
+    try {
+      // Create a new company with an id
+      const newCompany = {
+        id: Date.now().toString(), // Simple unique ID based on timestamp
+        ...req.body,
+        createdAt: new Date().toISOString()
+      };
+      
+      // Add to our in-memory array
+      companies.push(newCompany);
+      
+      // Log the created company
+      console.log("Created company:", newCompany);
+      console.log("Total companies:", companies.length);
+      
+      // Return success response
+      res.status(201).json({ 
+        message: "Company created successfully",
+        company: newCompany 
+      });
+    } catch (error) {
+      console.error("Error creating company:", error);
+      res.status(500).json({ message: "Failed to create company" });
+    }
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }
