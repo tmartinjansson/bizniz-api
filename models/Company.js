@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");  
+import mongoose from "mongoose";
+
 const companySchema = new mongoose.Schema(
   {
     name: {
@@ -15,11 +16,11 @@ const companySchema = new mongoose.Schema(
     },
     contractLevel: {
       type: String,
-      required: true,
+      required: false,
     },
     contractLength: {
       type: String,
-      required: true,
+      required: false,
     },
     createdAt: {
       type: Date,
@@ -41,4 +42,4 @@ companySchema.pre("save", function (next) {
   next();
 });
 
-module.exports = mongoose.model("Company", companySchema);
+export default mongoose.model("Company", companySchema);

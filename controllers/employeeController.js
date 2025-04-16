@@ -1,7 +1,7 @@
-const Employee = require("../models/Employee");
+import Employee from "../models/Employee.js";
 
 // GET all employees
-const getEmployees = async (req, res) => {
+export const getEmployees = async (req, res) => {
   try {
     const employees = await Employee.find().sort({ createdAt: -1 });
     res.status(200).json(employees);
@@ -11,7 +11,7 @@ const getEmployees = async (req, res) => {
 };
 
 // GET single employee
-const getEmployee = async (req, res) => {
+export const getEmployee = async (req, res) => {
   try {
     const employee = await Employee.findById(req.params.id);
     
@@ -26,7 +26,7 @@ const getEmployee = async (req, res) => {
 };
 
 // POST a new employee
-const createEmployee = async (req, res) => {
+export const createEmployee = async (req, res) => {
   console.log("Received employee data:", req.body);
   const { surname, name, location, salary, competence, company } = req.body;
 
@@ -51,7 +51,7 @@ const createEmployee = async (req, res) => {
 };
 
 // UPDATE employee
-const updateEmployee = async (req, res) => {
+export const updateEmployee = async (req, res) => {
   try {
     const { surname, name, location, salary, competence, company } = req.body;
     
@@ -88,7 +88,7 @@ const updateEmployee = async (req, res) => {
 };
 
 // DELETE employee
-const deleteEmployee = async (req, res) => {
+export const deleteEmployee = async (req, res) => {
   try {
     const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
     
@@ -100,12 +100,4 @@ const deleteEmployee = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "Failed to delete employee", error: err.message });
   }
-};
-
-module.exports = {
-  getEmployees,
-  getEmployee,
-  createEmployee,
-  updateEmployee,
-  deleteEmployee
 };

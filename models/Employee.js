@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");  
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema(
   {
@@ -24,7 +23,7 @@ const employeeSchema = new mongoose.Schema(
       required: false,
     },
     company: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
       required: true,
     },
@@ -48,4 +47,4 @@ employeeSchema.pre("save", function (next) {
   next();
 });
 
-module.exports = mongoose.model("Employee", employeeSchema);
+export default mongoose.model("Employee", employeeSchema);

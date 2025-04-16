@@ -1,7 +1,8 @@
-const Company = require("../models/Company");
+// companyController.js - Updated to ES Modules
+import Company from "../models/Company.js";  // Note the .js extension
 
 // GET all companies
-const getCompanies = async (req, res) => {
+export const getCompanies = async (req, res) => {
   try {
     const companies = await Company.find().sort({ createdAt: -1 });
     res.status(200).json(companies);
@@ -11,7 +12,7 @@ const getCompanies = async (req, res) => {
 };
 
 // GET single company
-const getCompany = async (req, res) => {
+export const getCompany = async (req, res) => {
   try {
     const company = await Company.findById(req.params.id);
     
@@ -26,7 +27,7 @@ const getCompany = async (req, res) => {
 };
 
 // POST a new company
-const createCompany = async (req, res) => {
+export const createCompany = async (req, res) => {
   console.log("Received company data:", req.body);
   const { name, industry, location, contractLevel, contractLength } = req.body;
 
@@ -44,7 +45,7 @@ const createCompany = async (req, res) => {
 };
 
 // UPDATE company
-const updateCompany = async (req, res) => {
+export const updateCompany = async (req, res) => {
   try {
     const { name, industry, location, contractLevel, contractLength } = req.body;
     
@@ -80,7 +81,7 @@ const updateCompany = async (req, res) => {
 };
 
 // DELETE company
-const deleteCompany = async (req, res) => {
+export const deleteCompany = async (req, res) => {
   try {
     const deletedCompany = await Company.findByIdAndDelete(req.params.id);
     
@@ -92,12 +93,4 @@ const deleteCompany = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "Failed to delete company", error: err.message });
   }
-};
-
-module.exports = {
-  getCompanies,
-  getCompany,
-  createCompany,
-  updateCompany,
-  deleteCompany
 };
