@@ -1,12 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const {
+
+import express from "express";
+import { 
   getCompanies,
   getCompany,
   createCompany,
   updateCompany,
-  deleteCompany
-} = require("../controllers/companyController");
+  deleteCompany 
+} from "../controllers/companyController.js";
+
+const router = express.Router();
 
 // Route to GET all companies
 router.get("/", getCompanies);
@@ -23,4 +25,4 @@ router.put("/:id", updateCompany);
 // Route to DELETE a company
 router.delete("/:id", deleteCompany);
 
-module.exports = router;
+export default router;

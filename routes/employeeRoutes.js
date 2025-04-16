@@ -1,12 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const { 
+
+import express from "express";
+import { 
   getEmployees, 
   getEmployee, 
   createEmployee, 
   updateEmployee, 
   deleteEmployee 
-} = require("../controllers/employeeController");
+} from "../controllers/employeeController.js";
+
+const router = express.Router();
 
 // Route to GET all employees
 router.get("/", getEmployees);
@@ -23,4 +25,4 @@ router.put("/:id", updateEmployee);
 // Route to DELETE a employee
 router.delete("/:id", deleteEmployee);
 
-module.exports = router;
+export default router;
