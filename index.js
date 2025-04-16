@@ -3,15 +3,21 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const companyRoutes = require("./routes/companyRoutes");
-const employeeRoutes = require("./routes/employeeRoutes");
-
+// Initialize app first
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ["https://bizniz-admin.vercel.app", "http://localhost:3000"],
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Import routes
+const companyRoutes = require("./routes/companyRoutes");
+const employeeRoutes = require("./routes/employeeRoutes");
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -23,22 +29,14 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Register routes
 app.use("/api/companies", companyRoutes);
-
-  // Register routes
-
-  app.use("/api/employees", employeeRoutes);
+app.use("/api/employees", employeeRoutes);
 
 // Test route
 app.get("/", (req, res) => {
   res.send("Bizniz API is running 🚀");
-
-
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🌍 Server is running on http://localhost:${PORT}`);
 });
-
-
-
