@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: ["https://bizniz-admin.vercel.app", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
@@ -42,13 +44,12 @@ app.get("/", (req, res) => {
   res.send("Bizniz API is running 🚀");
 });
 
+// Start server for local development
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`🌍 Server is running on http://localhost:${PORT}`);
+  });
+}
+
 // Export for Vercel
 module.exports = app;
-
-// Start server
-// For local development only
-// if (process.env.NODE_ENV !== "production") {
-//  const PORT = process.env.PORT || 5000;
-//  app.listen(PORT, () => {
-//    console.log(`🌍 Server is running on http://localhost:${PORT}`);
-//  });
