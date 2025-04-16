@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { 
-  getCompanies, 
-  getCompany, 
-  createCompany, 
-  updateCompany, 
-  deleteCompany 
+const {
+  getCompanies,
+  getCompany,
+  createCompany,
+  updateCompany,
+  deleteCompany
 } = require("../controllers/companyController");
 
 // Route to GET all companies
@@ -24,8 +24,3 @@ router.put("/:id", updateCompany);
 router.delete("/:id", deleteCompany);
 
 module.exports = router;
-
-
-
-
-
